@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 interface AnimationSettings {
   duration: number;
   stagger: number;
-  intensity: 'light' | 'medium' | 'heavy';
+  intensity: 'light' | 'medium' | 'heavy' | 'subtle';
   particleCount: number;
   enableGlitch: boolean;
   enableParticles: boolean;
@@ -143,8 +143,7 @@ export function useResponsiveAnimations() {
       scale: 1,
       transition: {
         delay: prefersReducedMotion ? 0 : i * settings.stagger,
-        duration: settings.duration,
-        ease: [0.25, 0.1, 0.25, 1] as const
+        duration: settings.duration
       }
     })
   };
@@ -162,12 +161,10 @@ export function useResponsiveAnimations() {
 
   // Optimized transition settings
   const transitions = {
-    fast: { duration: settings.duration * 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
-    normal: { duration: settings.duration, ease: [0.25, 0.1, 0.25, 1] as const },
-    slow: { duration: settings.duration * 1.5, ease: [0.25, 0.1, 0.25, 1] as const },
-    bounce: prefersReducedMotion 
-      ? { duration: settings.duration, ease: [0.25, 0.1, 0.25, 1] as const }
-      : { duration: settings.duration, ease: [0.68, -0.55, 0.265, 1.55] as const }
+    fast: { duration: settings.duration * 0.5 },
+    normal: { duration: settings.duration },
+    slow: { duration: settings.duration * 1.5 },
+    bounce: { duration: settings.duration }
   };
 
   return {

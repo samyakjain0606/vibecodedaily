@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { FloatingCodeSnippets } from '@/components/FloatingCodeSnippets';
 import { ChallengePreviewCard } from '@/components/ChallengePreviewCard';
-import { creativeExamples } from '@/data/sampleChallenge';
 import { useState, useEffect } from 'react';
 
 interface ChallengeHeroProps {
@@ -56,7 +55,7 @@ export function ChallengeHero({ challenge }: ChallengeHeroProps) {
   // Cycle through creative examples for inspiration
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentExampleIndex((prev) => (prev + 1) % creativeExamples.length);
+      setCurrentExampleIndex((prev) => (prev + 1) % (challenge.examples?.length || 1));
     }, 6000);
     return () => clearInterval(interval);
   }, []);
@@ -192,7 +191,7 @@ export function ChallengeHero({ challenge }: ChallengeHeroProps) {
               className="bg-muted/30 rounded-lg p-4 max-w-xl mx-auto"
             >
               <p className="text-sm font-medium text-foreground font-serif">
-                "{creativeExamples[currentExampleIndex].title}"
+                "{challenge.examples?.[currentExampleIndex] || 'Building amazing things...'}"
               </p>
             </motion.div>
           </motion.div>

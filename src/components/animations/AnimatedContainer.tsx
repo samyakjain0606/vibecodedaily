@@ -1,12 +1,11 @@
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface AnimatedContainerProps {
   children: ReactNode;
   className?: string;
   animation?: 'fadeUp' | 'fadeIn' | 'slideLeft' | 'slideRight' | 'scale';
   delay?: number;
-  duration?: number;
   staggerChildren?: number;
 }
 
@@ -15,7 +14,6 @@ export function AnimatedContainer({
   className = '',
   animation = 'fadeUp',
   delay = 0,
-  duration = 0.6,
   staggerChildren = 0.1
 }: AnimatedContainerProps) {
   
@@ -53,14 +51,7 @@ export function AnimatedContainer({
   };
 
   const itemVariants = {
-    ...animations[animation],
-    visible: {
-      ...animations[animation].visible,
-      transition: {
-        duration,
-        ease: [0.25, 0.1, 0.25, 1]
-      }
-    }
+    ...animations[animation]
   };
 
   return (
