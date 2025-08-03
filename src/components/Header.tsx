@@ -1,5 +1,4 @@
 import { Container } from '@/components/Container';
-import { ThemeToggle } from '@/components/ThemeToggle';
 
 export function Header() {
   return (
@@ -39,9 +38,9 @@ export function Header() {
             </a>
           </nav>
 
-          {/* Theme Toggle */}
+          {/* Right side placeholder for future features */}
           <div className="flex items-center">
-            <ThemeToggle />
+            {/* Reserved for user menu, notifications, etc. */}
           </div>
         </div>
       </Container>

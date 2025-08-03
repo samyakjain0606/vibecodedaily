@@ -144,7 +144,7 @@ export function useResponsiveAnimations() {
       transition: {
         delay: prefersReducedMotion ? 0 : i * settings.stagger,
         duration: settings.duration,
-        ease: [0.25, 0.1, 0.25, 1]
+        ease: [0.25, 0.1, 0.25, 1] as const
       }
     })
   };
@@ -162,12 +162,12 @@ export function useResponsiveAnimations() {
 
   // Optimized transition settings
   const transitions = {
-    fast: { duration: settings.duration * 0.5, ease: [0.25, 0.1, 0.25, 1] },
-    normal: { duration: settings.duration, ease: [0.25, 0.1, 0.25, 1] },
-    slow: { duration: settings.duration * 1.5, ease: [0.25, 0.1, 0.25, 1] },
+    fast: { duration: settings.duration * 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
+    normal: { duration: settings.duration, ease: [0.25, 0.1, 0.25, 1] as const },
+    slow: { duration: settings.duration * 1.5, ease: [0.25, 0.1, 0.25, 1] as const },
     bounce: prefersReducedMotion 
-      ? { duration: settings.duration, ease: [0.25, 0.1, 0.25, 1] }
-      : { duration: settings.duration, ease: [0.68, -0.55, 0.265, 1.55] }
+      ? { duration: settings.duration, ease: [0.25, 0.1, 0.25, 1] as const }
+      : { duration: settings.duration, ease: [0.68, -0.55, 0.265, 1.55] as const }
   };
 
   return {

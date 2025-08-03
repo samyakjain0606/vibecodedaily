@@ -125,12 +125,12 @@ export function ChallengeBrowser({ challenges }: ChallengeBrowserProps) {
 
           {/* Challenge Grid */}
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr"
             variants={cardsVariants}
             key={activeFilter} // Trigger re-animation when filter changes
           >
             {filteredChallenges.map((challenge) => (
-              <motion.div key={challenge.id} variants={itemVariants}>
+              <motion.div key={challenge.id} variants={itemVariants} className="h-full">
                 <ChallengeCard challenge={challenge} />
               </motion.div>
             ))}

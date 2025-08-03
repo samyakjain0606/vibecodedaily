@@ -38,6 +38,35 @@ export function BrandHero() {
     }
   };
 
+  // Funny text animation variants
+  const funnyTextVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.15,
+        delayChildren: prefersReducedMotion ? 0 : 1.8 // After the main subtitle
+      }
+    }
+  };
+
+  const wordVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: prefersReducedMotion ? 0 : 20,
+      scale: prefersReducedMotion ? 1 : 0.8
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: prefersReducedMotion ? [0.25, 0.1, 0.25, 1] as const : [0.68, -0.55, 0.265, 1.55] as const // Bounce effect
+      }
+    }
+  };
+
   // Split text into individual letters
   const splitText = (text: string) => {
     return text.split('').map((char, index) => ({
@@ -46,24 +75,53 @@ export function BrandHero() {
     }));
   };
 
+  // Split text into words for word-by-word animation
+  const splitIntoWords = (text: string) => {
+    return text.split(' ').map((word, index) => ({
+      word,
+      index
+    }));
+  };
+
   const vibeCodeLetters = splitText('VIBECODE');
   const dailyLetters = splitText('DAILY');
+  const funnyTextWords = splitIntoWords("Making developers go 'Wait, that actually works?' since 2025");
 
   return (
     <section className="min-h-[80vh] flex flex-col justify-center relative overflow-hidden">
-      {/* Layer 1: Terminal Command Stream */}
-      <TerminalStream 
-        commandDelay={2500}
-        maxCommands={4}
-        className="opacity-40"
-      />
+      {/* Layer 1: Terminal Command Stream - Left Side */}
+      <div className="absolute left-0 top-0 h-full w-1/3 overflow-hidden">
+        <TerminalStream 
+          commandDelay={2500}
+          maxCommands={4}
+          className="opacity-65"
+        />
+      </div>
       
-      {/* Layer 2: Gaming glyphs */}
-      <GamingGlyphs 
-        glyphCount={settings.particleCount ? Math.min(settings.particleCount / 2, 8) : 6}
-        intensity={settings.intensity}
-        className="opacity-80"
-      />
+      {/* Layer 1b: Terminal Command Stream - Right Side */}
+      <div className="absolute right-0 top-0 h-full w-1/3 overflow-hidden">
+        <TerminalStream 
+          commandDelay={3000}
+          maxCommands={3}
+          className="opacity-45"
+        />
+      </div>
+      
+      {/* Layer 2: Gaming glyphs - Positioned on sides */}
+      <div className="absolute left-0 top-0 h-full w-1/4">
+        <GamingGlyphs 
+          glyphCount={settings.particleCount ? Math.min(settings.particleCount / 4, 4) : 3}
+          intensity={settings.intensity}
+          className="opacity-80"
+        />
+      </div>
+      <div className="absolute right-0 top-0 h-full w-1/4">
+        <GamingGlyphs 
+          glyphCount={settings.particleCount ? Math.min(settings.particleCount / 4, 4) : 3}
+          intensity={settings.intensity}
+          className="opacity-60"
+        />
+      </div>
       
       {/* Layer 3: Enhanced particle background */}
       {settings.enableParticles && (
@@ -78,8 +136,8 @@ export function BrandHero() {
       <HexagonalBackground 
         density="medium" 
         animated={!prefersReducedMotion}
-        opacity={0.08}
-        className="opacity-40"
+        opacity={0.15}
+        className="opacity-60"
       />
       
       {/* Layer 5: Gradient mesh background */}
@@ -89,15 +147,18 @@ export function BrandHero() {
       </div>
       
       {/* Layer 6: Gaming geometric decorations */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-35">
         <div className="absolute top-1/4 left-8 w-0.5 h-16 bg-primary/60 gaming-bracket" />
         <div className="absolute top-1/4 right-8 w-0.5 h-16 bg-primary/60 gaming-bracket" />
         <div className="absolute bottom-1/4 left-12 w-8 h-0.5 bg-accent-blue/60" />
         <div className="absolute bottom-1/4 right-12 w-8 h-0.5 bg-accent-blue/60" />
       </div>
       
+      {/* Center content protection overlay */}
+      <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-r from-transparent via-background/10 to-transparent z-10" />
+      
       <Container>
-        <div className="text-center space-y-8 relative z-10">
+        <div className="text-center space-y-8 relative z-20 mx-auto max-w-4xl px-4 sm:px-8">
           {/* Enhanced brand title with letter-by-letter animation */}
           <motion.div
             className="space-y-4"
@@ -160,38 +221,53 @@ export function BrandHero() {
             animate="visible"
           >
             <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground leading-relaxed font-medium">
-              Daily coding challenges that{' '}
-              <span className="text-primary font-semibold">break the rules</span>
+              Daily challenges that make coding{' '}
+              <span className="text-primary font-semibold">feel alive again</span>
             </p>
             
-            <p className="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto">
-              Weird, wonderful, and surprisingly practical exercises for creative developers
-            </p>
+            <motion.p 
+              className="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto"
+              variants={funnyTextVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {funnyTextWords.map((wordObj, i) => (
+                <motion.span
+                  key={`funny-word-${i}`}
+                  className="inline-block mr-2"
+                  variants={wordVariants}
+                >
+                  {wordObj.word}
+                </motion.span>
+              ))}
+            </motion.p>
           </motion.div>
           
-          {/* Gaming-style CTA buttons */}
+          {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
+            className="space-y-8 pt-12"
             variants={ctaVariants}
             initial="hidden"
             animate="visible"
           >
-            <GamingButton
-              variant="primary"
-              size="lg"
-              className="font-brand text-lg tracking-wide"
-            >
-              START CHALLENGE
-            </GamingButton>
-            
-            <GamingButton
-              variant="ghost"
-              size="lg"
-              className="font-brand text-lg tracking-wide"
-              scanLine={false}
-            >
-              BROWSE ARCHIVE
-            </GamingButton>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <GamingButton
+                variant="primary"
+                size="lg"
+                className="font-brand text-lg tracking-wide"
+              >
+                START CHALLENGE
+              </GamingButton>
+              
+              <GamingButton
+                variant="ghost"
+                size="lg"
+                className="font-brand text-lg tracking-wide"
+                scanLine={false}
+              >
+                BROWSE ARCHIVE
+              </GamingButton>
+            </div>
           </motion.div>
           
           {/* Gaming stats/info */}

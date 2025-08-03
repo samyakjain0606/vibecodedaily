@@ -3,6 +3,7 @@ import { Target, ArrowRight } from 'lucide-react';
 import { Container } from '@/components/Container';
 import { ChallengeCard } from '@/components/challenge/ChallengeCard';
 import { Button } from '@/components/ui/button';
+import { NervousButton } from '@/components/NervousButton';
 import type { Challenge } from '@/types';
 
 interface FeaturedChallengeProps {
@@ -87,29 +88,36 @@ export function FeaturedChallenge({ challenge }: FeaturedChallengeProps) {
             </Button>
           </motion.div>
 
-          {/* Code Examples Preview */}
-          {challenge.examples && challenge.examples.length > 0 && (
-            <motion.div 
-              className="max-w-2xl mx-auto"
-              variants={itemVariants}
-            >
-              <div className="bg-muted/30 rounded-lg p-6 border">
-                <h3 className="text-sm font-medium text-muted-foreground mb-3 font-brand uppercase tracking-wide">
-                  Code Snippets to Get You Started
+          {/* Interactive Challenge Demo */}
+          <motion.div 
+            className="max-w-2xl mx-auto"
+            variants={itemVariants}
+          >
+            <div className="bg-muted/30 rounded-lg p-8 border text-center space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-lg font-bold text-primary font-brand">
+                  Interactive Challenge Preview
                 </h3>
-                <div className="space-y-2">
-                  {challenge.examples.slice(0, 3).map((example, index) => (
-                    <div 
-                      key={index}
-                      className="font-mono text-sm bg-card/50 rounded px-3 py-2 text-foreground/80 border"
-                    >
-                      {example}
-                    </div>
-                  ))}
-                </div>
+                <p className="text-sm text-muted-foreground">
+                  Try our "Nervous Button" - a UI component that gets anxious when you try to click it.
+                  Move your mouse closer and watch it panic!
+                </p>
               </div>
-            </motion.div>
-          )}
+              
+              <div className="flex justify-center py-4">
+                <NervousButton
+                  variant="default"
+                  size="lg"
+                  className="font-medium text-base"
+                  onClick={() => {
+                    alert('🎉 Wow! You actually managed to click me! You must have nerves of steel.');
+                  }}
+                >
+                  Try to click me!
+                </NervousButton>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </Container>
     </motion.section>
