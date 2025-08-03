@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Container } from '@/components/Container';
-import { GlitchText, ParticleBackground, GamingButton, HexagonalBackground } from '@/components/animations';
+import { GlitchText, ParticleBackground, GamingButton, HexagonalBackground, GamingGlyphs, TerminalStream } from '@/components/animations';
 import { useResponsiveAnimations } from '@/hooks';
 import { useState, useEffect } from 'react';
 
@@ -51,7 +51,21 @@ export function BrandHero() {
 
   return (
     <section className="min-h-[80vh] flex flex-col justify-center relative overflow-hidden">
-      {/* Enhanced particle background */}
+      {/* Layer 1: Terminal Command Stream */}
+      <TerminalStream 
+        commandDelay={2500}
+        maxCommands={4}
+        className="opacity-40"
+      />
+      
+      {/* Layer 2: Gaming glyphs */}
+      <GamingGlyphs 
+        glyphCount={settings.particleCount ? Math.min(settings.particleCount / 2, 8) : 6}
+        intensity={settings.intensity}
+        className="opacity-80"
+      />
+      
+      {/* Layer 3: Enhanced particle background */}
       {settings.enableParticles && (
         <ParticleBackground 
           intensity={settings.intensity} 
@@ -60,7 +74,7 @@ export function BrandHero() {
         />
       )}
       
-      {/* Hexagonal background pattern */}
+      {/* Layer 4: Hexagonal background pattern */}
       <HexagonalBackground 
         density="medium" 
         animated={!prefersReducedMotion}
@@ -68,13 +82,13 @@ export function BrandHero() {
         className="opacity-40"
       />
       
-      {/* Gradient mesh background */}
+      {/* Layer 5: Gradient mesh background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent-blue/5" />
         <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
       </div>
       
-      {/* Gaming geometric decorations */}
+      {/* Layer 6: Gaming geometric decorations */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-1/4 left-8 w-0.5 h-16 bg-primary/60 gaming-bracket" />
         <div className="absolute top-1/4 right-8 w-0.5 h-16 bg-primary/60 gaming-bracket" />
@@ -97,11 +111,10 @@ export function BrandHero() {
                 {vibeCodeLetters.map((letter, i) => (
                   <motion.span
                     key={`vibe-${i}`}
-                    className="inline-block text-brand-gradient gaming-glow"
+                    className="inline-block text-brand-gradient-enhanced gaming-glow-enhanced"
                     variants={letterVariants}
                     custom={i}
                     style={{
-                      textShadow: !prefersReducedMotion ? '0 0 30px oklch(0.75 0.25 142 / 0.4)' : 'none',
                       filter: !prefersReducedMotion ? 'drop-shadow(0 4px 8px oklch(0.75 0.25 142 / 0.2))' : 'none'
                     }}
                   >

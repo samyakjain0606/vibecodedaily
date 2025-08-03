@@ -385,6 +385,35 @@
     color: transparent;
   }
   
+  /* Enhanced brand gradient with guaranteed visibility */
+  .text-brand-gradient-enhanced {
+    /* Always visible solid color - this ensures text is never invisible */
+    color: oklch(0.75 0.25 142) !important;
+    /* Add engaging glow effect */
+    text-shadow: 
+      0 0 10px oklch(0.75 0.25 142 / 0.4),
+      0 0 20px oklch(0.75 0.25 142 / 0.2),
+      0 0 30px oklch(0.65 0.30 240 / 0.1);
+    /* Font weight for better visibility */
+    font-weight: 700;
+    /* Smooth transitions */
+    transition: all 0.3s ease;
+  }
+  
+  /* Hover state enhances the glow effects */
+  .text-brand-gradient-enhanced:hover {
+    /* Keep solid color but enhance glow */
+    color: oklch(0.75 0.25 142) !important;
+    /* Dramatically enhanced glow on hover */
+    text-shadow: 
+      0 0 15px oklch(0.75 0.25 142 / 0.8),
+      0 0 30px oklch(0.65 0.30 240 / 0.6),
+      0 0 45px oklch(0.70 0.28 25 / 0.4),
+      0 0 60px oklch(0.75 0.25 142 / 0.2);
+    /* Slight scale on hover */
+    transform: scale(1.02);
+  }
+  
   .bg-brand-gradient {
     background: linear-gradient(135deg,
       oklch(0.75 0.25 142) 0%,
@@ -410,6 +439,82 @@
       0 0 10px oklch(0.75 0.25 142 / 0.4),
       0 0 20px oklch(0.75 0.25 142 / 0.2),
       0 0 40px oklch(0.75 0.25 142 / 0.1);
+  }
+  
+  /* Enhanced gaming glow for brand text */
+  .gaming-glow-enhanced {
+    text-shadow: 
+      0 0 15px oklch(0.75 0.25 142 / 0.5),
+      0 0 30px oklch(0.75 0.25 142 / 0.3),
+      0 0 50px oklch(0.75 0.25 142 / 0.15);
+    /* Subtle breathing animation */
+    animation: gaming-glow-breathe 3s ease-in-out infinite;
+  }
+  
+  @keyframes gaming-glow-breathe {
+    0%, 100% {
+      text-shadow: 
+        0 0 15px oklch(0.75 0.25 142 / 0.5),
+        0 0 30px oklch(0.75 0.25 142 / 0.3),
+        0 0 50px oklch(0.75 0.25 142 / 0.15);
+    }
+    50% {
+      text-shadow: 
+        0 0 20px oklch(0.75 0.25 142 / 0.7),
+        0 0 40px oklch(0.75 0.25 142 / 0.4),
+        0 0 70px oklch(0.75 0.25 142 / 0.2);
+    }
+  }
+  
+  /* Enhanced hover state that builds on the breathing effect */
+  .gaming-glow-enhanced:hover {
+    animation: gaming-glow-intense 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes gaming-glow-intense {
+    0%, 100% {
+      text-shadow: 
+        0 0 25px oklch(0.75 0.25 142 / 0.8),
+        0 0 50px oklch(0.65 0.30 240 / 0.5),
+        0 0 80px oklch(0.70 0.28 25 / 0.3),
+        0 0 120px oklch(0.75 0.25 142 / 0.15);
+    }
+    50% {
+      text-shadow: 
+        0 0 35px oklch(0.75 0.25 142 / 1),
+        0 0 70px oklch(0.65 0.30 240 / 0.7),
+        0 0 100px oklch(0.70 0.28 25 / 0.4),
+        0 0 150px oklch(0.75 0.25 142 / 0.2);
+    }
+  }
+  
+  /* Alternative: Subtle pulse animation for brand text */
+  .text-brand-pulse {
+    color: oklch(0.75 0.25 142);
+    background: linear-gradient(90deg,
+      oklch(0.75 0.25 142) 0%,
+      oklch(0.65 0.30 240) 50%,
+      oklch(0.70 0.28 25) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-pulse-glow 4s ease-in-out infinite;
+  }
+  
+  @keyframes text-pulse-glow {
+    0%, 100% {
+      opacity: 0.9;
+      text-shadow: 
+        0 0 10px oklch(0.75 0.25 142 / 0.4),
+        0 0 20px oklch(0.75 0.25 142 / 0.2);
+    }
+    50% {
+      opacity: 1;
+      text-shadow: 
+        0 0 15px oklch(0.75 0.25 142 / 0.6),
+        0 0 30px oklch(0.75 0.25 142 / 0.3),
+        0 0 50px oklch(0.75 0.25 142 / 0.15);
+    }
   }
   
   .gaming-bracket::before {
@@ -560,8 +665,15 @@
       animation: none !important;
     }
     
-    .gaming-glow {
-      text-shadow: none !important;
+    .gaming-glow,
+    .gaming-glow-enhanced {
+      animation: none !important;
+      text-shadow: 
+        0 0 10px oklch(0.75 0.25 142 / 0.3) !important;
+    }
+    
+    .text-brand-gradient-enhanced {
+      animation: none !important;
     }
   }
   
@@ -573,13 +685,203 @@
   
   /* High contrast mode support */
   @media (prefers-contrast: high) {
-    .text-brand-gradient {
+    .text-brand-gradient,
+    .text-brand-gradient-enhanced {
       background: none !important;
       color: oklch(0.75 0.25 142) !important;
+      -webkit-text-fill-color: oklch(0.75 0.25 142) !important;
     }
     
-    .gaming-glow {
+    .gaming-glow,
+    .gaming-glow-enhanced {
       text-shadow: none !important;
+      animation: none !important;
+    }
+  }
+
+  /* Gaming Background Enhancements */
+  
+  /* Circuit Board Traces */
+  .circuit-traces {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    pointer-events: none;
+    background-image: 
+      linear-gradient(90deg, transparent 94%, oklch(0.75 0.25 142 / 0.6) 95%, oklch(0.75 0.25 142 / 0.8) 96%, oklch(0.75 0.25 142 / 0.6) 97%, transparent 98%),
+      linear-gradient(0deg, transparent 94%, oklch(0.65 0.30 240 / 0.4) 95%, oklch(0.65 0.30 240 / 0.6) 96%, oklch(0.65 0.30 240 / 0.4) 97%, transparent 98%),
+      linear-gradient(45deg, transparent 96%, oklch(0.70 0.28 25 / 0.3) 97%, transparent 98%),
+      linear-gradient(-45deg, transparent 96%, oklch(0.60 0.25 300 / 0.3) 97%, transparent 98%);
+    background-size: 150px 150px, 180px 180px, 240px 240px, 200px 200px;
+    background-position: 0 0, 50px 30px, 100px 80px, 30px 120px;
+    animation: circuit-pulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes circuit-pulse {
+    0% {
+      opacity: 0.08;
+      filter: brightness(0.8) hue-rotate(0deg);
+    }
+    25% {
+      opacity: 0.15;
+      filter: brightness(1.1) hue-rotate(5deg);
+    }
+    50% {
+      opacity: 0.12;
+      filter: brightness(0.9) hue-rotate(10deg);
+    }
+    75% {
+      opacity: 0.18;
+      filter: brightness(1.2) hue-rotate(5deg);
+    }
+    100% {
+      opacity: 0.10;
+      filter: brightness(0.8) hue-rotate(0deg);
+    }
+  }
+
+  /* Scanline Overlay Effect */
+  .scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      transparent 48%,
+      oklch(0.75 0.25 142 / 0.02) 49%,
+      oklch(0.75 0.25 142 / 0.04) 50%,
+      oklch(0.75 0.25 142 / 0.02) 51%,
+      transparent 52%
+    );
+    background-size: 100% 6px;
+    animation: scanline-sweep 15s ease-in-out infinite;
+  }
+
+  @keyframes scanline-sweep {
+    0%, 85%, 100% { 
+      opacity: 0.2;
+      transform: translateY(0);
+    }
+    10%, 75% { 
+      opacity: 0.6;
+      transform: translateY(2px);
+    }
+    42%, 58% {
+      opacity: 0.8;
+      transform: translateY(-1px);
+    }
+  }
+
+  /* Layered Noise Texture */
+  .gaming-noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: 
+      radial-gradient(circle at 20% 30%, oklch(0.75 0.25 142 / 0.03) 0%, transparent 60%),
+      radial-gradient(circle at 80% 70%, oklch(0.65 0.30 240 / 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 60% 20%, oklch(0.70 0.28 25 / 0.02) 0%, transparent 70%),
+      radial-gradient(circle at 40% 80%, oklch(0.60 0.25 300 / 0.03) 0%, transparent 65%);
+    background-size: 800px 600px, 600px 800px, 1000px 400px, 500px 900px;
+    background-position: 0 0, 200px 100px, 400px 200px, 100px 300px;
+    animation: hue-shift 25s ease-in-out infinite alternate, noise-drift 40s linear infinite;
+  }
+
+  @keyframes hue-shift {
+    0% { 
+      filter: hue-rotate(0deg) brightness(0.8) contrast(1.1);
+      opacity: 0.4;
+    }
+    25% {
+      filter: hue-rotate(8deg) brightness(1.0) contrast(1.2);
+      opacity: 0.6;
+    }
+    50% { 
+      filter: hue-rotate(15deg) brightness(1.1) contrast(1.0);
+      opacity: 0.5;
+    }
+    75% {
+      filter: hue-rotate(5deg) brightness(0.9) contrast(1.3);
+      opacity: 0.7;
+    }
+    100% { 
+      filter: hue-rotate(-5deg) brightness(0.8) contrast(1.1);
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes noise-drift {
+    0% { background-position: 0 0, 200px 100px, 400px 200px, 100px 300px; }
+    25% { background-position: 100px 50px, 300px 150px, 300px 250px, 50px 250px; }
+    50% { background-position: 200px 100px, 100px 200px, 500px 100px, 150px 400px; }
+    75% { background-position: 50px 150px, 250px 50px, 200px 300px, 200px 200px; }
+    100% { background-position: 0 0, 200px 100px, 400px 200px, 100px 300px; }
+  }
+
+  /* Gaming Glyphs for floating symbols */
+  .gaming-glyph {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.06;
+    text-shadow: 0 0 4px currentColor;
+    animation: glyph-pulse 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes glyph-pulse {
+    0% { 
+      opacity: 0.04;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 0.08;
+      transform: scale(1.1);
+    }
+    100% { 
+      opacity: 0.06;
+      transform: scale(1.0);
+    }
+  }
+
+  /* Accessibility updates for new background elements */
+  @media (prefers-reduced-motion: reduce) {
+    .circuit-traces,
+    .scanlines,
+    .gaming-noise,
+    .gaming-glyph {
+      animation: none !important;
+    }
+    
+    .circuit-traces {
+      opacity: 0.08 !important;
+      filter: none !important;
+    }
+    
+    .scanlines {
+      opacity: 0.15 !important;
+      transform: none !important;
+    }
+    
+    .gaming-noise {
+      opacity: 0.3 !important;
+      filter: none !important;
+    }
+    
+    .gaming-glyph {
+      opacity: 0.05 !important;
+      transform: none !important;
+    }
+  }
+
+  /* High contrast updates for new elements */
+  @media (prefers-contrast: high) {
+    .circuit-traces,
+    .scanlines,
+    .gaming-noise,
+    .gaming-glyph {
+      opacity: 0.02 !important;
+      animation: none !important;
     }
   }
 }
