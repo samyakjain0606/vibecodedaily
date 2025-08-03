@@ -2,16 +2,10 @@ import { motion } from 'framer-motion';
 import { Container } from '@/components/Container';
 import { GlitchText, ParticleBackground, GamingButton, HexagonalBackground, GamingGlyphs, TerminalStream } from '@/components/animations';
 import { useResponsiveAnimations } from '@/hooks';
-import { useState, useEffect } from 'react';
 
 export function BrandHero() {
-  const [isLoaded, setIsLoaded] = useState(false);
   const { settings, letterVariants, containerVariants, transitions, prefersReducedMotion } = useResponsiveAnimations();
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 500);
-    return () => clearTimeout(timer);
-  }, []);
 
   const subtitleVariants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30, scale: prefersReducedMotion ? 1 : 0.9 },
@@ -59,11 +53,7 @@ export function BrandHero() {
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: prefersReducedMotion ? [0.25, 0.1, 0.25, 1] as const : [0.68, -0.55, 0.265, 1.55] as const // Bounce effect
-      }
+      scale: 1
     }
   };
 
@@ -111,14 +101,14 @@ export function BrandHero() {
       <div className="absolute left-0 top-0 h-full w-1/4">
         <GamingGlyphs 
           glyphCount={settings.particleCount ? Math.min(settings.particleCount / 4, 4) : 3}
-          intensity={settings.intensity}
+          intensity={settings.intensity === 'light' ? 'subtle' : settings.intensity}
           className="opacity-80"
         />
       </div>
       <div className="absolute right-0 top-0 h-full w-1/4">
         <GamingGlyphs 
           glyphCount={settings.particleCount ? Math.min(settings.particleCount / 4, 4) : 3}
-          intensity={settings.intensity}
+          intensity={settings.intensity === 'light' ? 'subtle' : settings.intensity}
           className="opacity-60"
         />
       </div>
@@ -126,7 +116,7 @@ export function BrandHero() {
       {/* Layer 3: Enhanced particle background */}
       {settings.enableParticles && (
         <ParticleBackground 
-          intensity={settings.intensity} 
+          intensity={settings.intensity === 'light' ? 'subtle' : settings.intensity} 
           particleCount={settings.particleCount}
           className="opacity-60" 
         />
@@ -181,7 +171,7 @@ export function BrandHero() {
                   >
                     {settings.enableGlitch ? (
                       <GlitchText
-                        intensity={settings.intensity}
+                        intensity={settings.intensity === 'subtle' ? 'light' : settings.intensity}
                         triggerOnHover={true}
                         delay={prefersReducedMotion ? 0 : i * 100 + 3000} // Auto-glitch after initial animation
                       >

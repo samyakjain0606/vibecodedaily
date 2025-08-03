@@ -33,7 +33,7 @@ export function HexagonalBackground({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: sizeClasses[settings.size],
+      size: sizeClasses[settings.size as keyof typeof sizeClasses],
       delay: Math.random() * 10,
       duration: 20 + Math.random() * 20,
       opacity: opacity * (0.5 + Math.random() * 0.5)
@@ -41,17 +41,10 @@ export function HexagonalBackground({
   }, [density, opacity]);
 
   const hexagonVariants = {
-    animate: (hexagon: any) => ({
+    animate: {
       rotate: 360,
-      scale: [1, 1.2, 1],
-      opacity: [hexagon.opacity, hexagon.opacity * 1.5, hexagon.opacity],
-      transition: {
-        duration: hexagon.duration,
-        repeat: Infinity,
-        ease: "linear",
-        delay: hexagon.delay
-      }
-    })
+      scale: [1, 1.2, 1]
+    }
   };
 
   // SVG hexagon path
@@ -92,7 +85,6 @@ export function HexagonalBackground({
           }}
           variants={animated ? hexagonVariants : undefined}
           animate={animated ? "animate" : undefined}
-          custom={hexagon}
         >
           <svg
             viewBox="0 0 20 20"

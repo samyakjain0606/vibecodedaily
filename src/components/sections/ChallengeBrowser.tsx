@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Archive } from 'lucide-react';
+import { ChevronRight, Archive } from 'lucide-react';
 import { Container } from '@/components/Container';
 import { ChallengeCard } from '@/components/challenge/ChallengeCard';
 import { Button } from '@/components/ui/button';
@@ -49,11 +49,7 @@ export function ChallengeBrowser({ challenges }: ChallengeBrowserProps) {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1]
-      }
+      y: 0
     }
   };
 
