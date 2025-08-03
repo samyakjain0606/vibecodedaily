@@ -30,9 +30,9 @@ function App() {
         <footer className="border-t border-border/40 bg-muted/30">
           <Container>
             <div className="py-8 text-center text-sm text-muted-foreground">
-              <p>&copy; 2024 VibeCode Daily. Built for creative developers who break the rules.</p>
+              <p>&copy; 2025 VibeCode Daily. Built for creative developers who break the rules.</p>
               <p className="mt-2 text-xs">
-                React + TypeScript + shadcn/ui + Framer Motion + OKLCH Color Magic
+                Created by <a href="https://x.com/Samyak0606" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Samyak</a> • <a href="https://github.com/samyakjain0606/vibecodedaily" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GitHub</a>
               </p>
             </div>
           </Container>
