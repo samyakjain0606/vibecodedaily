@@ -5,6 +5,13 @@ import { useResponsiveAnimations } from '@/hooks';
 
 export function BrandHero() {
   const { settings, letterVariants, containerVariants, transitions, prefersReducedMotion } = useResponsiveAnimations();
+  
+  const scrollToTodaysChallenge = () => {
+    const element = document.getElementById('todays-challenge');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
 
   const subtitleVariants = {
@@ -244,18 +251,20 @@ export function BrandHero() {
               <GamingButton
                 variant="primary"
                 size="lg"
+                onClick={scrollToTodaysChallenge}
                 className="font-brand text-lg tracking-wide"
               >
-                START CHALLENGE
+                TODAY'S CHALLENGE
               </GamingButton>
               
               <GamingButton
                 variant="ghost"
                 size="lg"
+                onClick={() => window.open('https://x.com', '_blank')}
                 className="font-brand text-lg tracking-wide"
                 scanLine={false}
               >
-                BROWSE ARCHIVE
+                POST ON X
               </GamingButton>
             </div>
           </motion.div>

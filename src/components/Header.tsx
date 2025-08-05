@@ -1,6 +1,20 @@
 import { Container } from '@/components/Container';
 
 export function Header() {
+  const scrollToChallenge = () => {
+    const challengeSection = document.getElementById('todays-challenge');
+    if (challengeSection) {
+      challengeSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToArchive = () => {
+    const archiveSection = document.getElementById('archive');
+    if (archiveSection) {
+      archiveSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <Container>
@@ -18,24 +32,18 @@ export function Header() {
 
           {/* Navigation - hidden on mobile for now, can be expanded later */}
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-            <a 
-              href="#" 
+            <button 
+              onClick={scrollToChallenge}
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
               Today's Challenge
-            </a>
-            <a 
-              href="#" 
+            </button>
+            <button 
+              onClick={scrollToArchive}
               className="text-foreground/60 hover:text-foreground transition-colors"
             >
               Archive
-            </a>
-            <a 
-              href="#" 
-              className="text-foreground/60 hover:text-foreground transition-colors"
-            >
-              Stats
-            </a>
+            </button>
           </nav>
 
           {/* Right side placeholder for future features */}

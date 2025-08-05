@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Target, ArrowRight } from 'lucide-react';
 import { Container } from '@/components/Container';
 import { ChallengeCard } from '@/components/challenge/ChallengeCard';
 import { Button } from '@/components/ui/button';
 import { NervousButton } from '@/components/NervousButton';
+import { ChallengeDetailsModal } from '@/components/ChallengeDetailsModal';
 import type { Challenge } from '@/types';
 
 interface FeaturedChallengeProps {
@@ -11,6 +13,9 @@ interface FeaturedChallengeProps {
 }
 
 export function FeaturedChallenge({ challenge }: FeaturedChallengeProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
   const sectionVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -32,6 +37,7 @@ export function FeaturedChallenge({ challenge }: FeaturedChallengeProps) {
 
   return (
     <motion.section 
+      id="todays-challenge"
       className="py-16 lg:py-24"
       variants={sectionVariants}
       initial="hidden"
@@ -64,35 +70,30 @@ export function FeaturedChallenge({ challenge }: FeaturedChallengeProps) {
 
           {/* Action Buttons */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto"
+            className="flex justify-center items-center"
             variants={itemVariants}
           >
             <Button 
-              size="lg"
-              className="w-full sm:w-auto font-brand font-semibold bg-primary hover:bg-primary/90 text-primary-foreground glow-primary hover:glow-primary"
-            >
-              Start Challenge
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-            
-            <Button 
               variant="outline" 
               size="lg"
-              className="w-full sm:w-auto font-brand hover:border-primary hover:text-primary"
+              onClick={() => setIsModalOpen(true)}
+              className="font-brand hover:border-primary hover:text-primary"
             >
               View Details
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </motion.div>
 
           {/* Interactive Challenge Demo */}
           <motion.div 
+            id="interactive-demo"
             className="max-w-2xl mx-auto"
             variants={itemVariants}
           >
             <div className="bg-muted/30 rounded-lg p-8 border text-center space-y-6">
               <div className="space-y-2">
                 <h3 className="text-lg font-bold text-primary font-brand">
-                  Interactive Challenge Preview
+                  Example Challenge Preview
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   Try our "Nervous Button" - a UI component that gets anxious when you try to click it.
@@ -116,6 +117,13 @@ export function FeaturedChallenge({ challenge }: FeaturedChallengeProps) {
           </motion.div>
         </div>
       </Container>
+
+      {/* Challenge Details Modal */}
+      <ChallengeDetailsModal
+        challenge={challenge}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </motion.section>
   );
 }

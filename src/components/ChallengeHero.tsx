@@ -42,6 +42,13 @@ function DifficultyBadge({ difficulty }: { difficulty: Challenge['difficulty'] }
 export function ChallengeHero({ challenge }: ChallengeHeroProps) {
   const [currentExampleIndex, setCurrentExampleIndex] = useState(0);
   
+  const scrollToTodaysChallenge = () => {
+    const element = document.getElementById('todays-challenge');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -207,8 +214,12 @@ export function ChallengeHero({ challenge }: ChallengeHeroProps) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button size="lg" className="px-8 py-3 text-base font-semibold">
-                Start Challenge 🚀
+              <Button 
+                size="lg" 
+                onClick={scrollToTodaysChallenge}
+                className="px-8 py-3 text-base font-semibold"
+              >
+                Today's Challenge 🚀
               </Button>
             </motion.div>
             <motion.div

@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, Archive } from 'lucide-react';
+import { Archive } from 'lucide-react';
 import { Container } from '@/components/Container';
 import { ChallengeCard } from '@/components/challenge/ChallengeCard';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import type { Challenge } from '@/types';
 
@@ -33,6 +32,10 @@ export function ChallengeBrowser({ challenges }: ChallengeBrowserProps) {
   const filteredChallenges = activeFilter === 'all' 
     ? challenges 
     : challenges.filter(challenge => challenge.difficulty === activeFilter);
+
+  // Show only first 3 challenges clearly, blur the rest
+  const visibleChallenges = filteredChallenges.slice(0, 3);
+  const blurredChallenges = filteredChallenges.slice(3, 6); // Show 3 more but blurred
 
   const browserVariants = {
     hidden: { opacity: 0 },
@@ -66,6 +69,7 @@ export function ChallengeBrowser({ challenges }: ChallengeBrowserProps) {
 
   return (
     <motion.section 
+      id="archive"
       className="py-16 lg:py-24 bg-muted/20"
       variants={browserVariants}
       initial="hidden"
@@ -121,31 +125,32 @@ export function ChallengeBrowser({ challenges }: ChallengeBrowserProps) {
 
           {/* Challenge Grid */}
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-fr"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr"
             variants={cardsVariants}
             key={activeFilter} // Trigger re-animation when filter changes
           >
-            {filteredChallenges.map((challenge) => (
+            {/* Visible challenges (first 3) */}
+            {visibleChallenges.map((challenge) => (
               <motion.div key={challenge.id} variants={itemVariants} className="h-full">
                 <ChallengeCard challenge={challenge} />
               </motion.div>
             ))}
+            
+            {/* Blurred challenges (next 3) */}
+            {blurredChallenges.map((challenge) => (
+              <motion.div 
+                key={`blurred-${challenge.id}`} 
+                variants={itemVariants} 
+                className="h-full relative"
+              >
+                <div className="blur-sm opacity-60 pointer-events-none">
+                  <ChallengeCard challenge={challenge} />
+                </div>
+                <div className="absolute inset-0 bg-background/20 rounded-lg" />
+              </motion.div>
+            ))}
           </motion.div>
 
-          {/* Browse More CTA */}
-          <motion.div 
-            className="text-center pt-8"
-            variants={itemVariants}
-          >
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="font-brand hover:border-primary hover:text-primary"
-            >
-              View Full Archive
-              <ChevronRight className="w-4 h-4 ml-2" />
-            </Button>
-          </motion.div>
         </div>
       </Container>
     </motion.section>
