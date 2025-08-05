@@ -180,7 +180,7 @@ export function TerminalStream({
       typewriterTimeouts.current.forEach(timeout => clearTimeout(timeout));
       typewriterTimeouts.current.clear();
     };
-  }, [commandDelay]);
+  }, []); // Remove commandDelay from dependencies since it's passed as prop and shouldn't change
 
   return (
     <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>

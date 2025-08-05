@@ -47,6 +47,7 @@ export function InteractiveDemo() {
 
   return (
     <motion.section 
+      id="interactive-demo"
       className="py-16 lg:py-24"
       variants={demoVariants}
       initial="hidden"

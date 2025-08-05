@@ -55,7 +55,7 @@ export function ChallengeCard({ challenge, className, variant = 'default' }: Cha
         </h3>
         
         <p className={cn(
-          'text-muted-foreground leading-relaxed line-clamp-3 flex-1',
+          'text-muted-foreground leading-relaxed line-clamp-4 flex-1',
           isFeature ? 'text-base' : 'text-sm'
         )}>
           {challenge.description}

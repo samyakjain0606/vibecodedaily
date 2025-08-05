@@ -7,6 +7,9 @@ export interface Challenge {
   tags: string[];
   dateCreated: string;
   examples?: string[];
+  hasInteractiveComponent?: boolean;
+  componentName?: string;
+  tips?: string[];
 }
 
 export interface User {

@@ -80,7 +80,7 @@ export function NervousButton({
       window.removeEventListener('scroll', updateButtonPosition);
       observer.disconnect();
     };
-  }, [evasiveOffset]);
+  }, []); // Remove evasiveOffset from dependencies
   
   // Calculate nervousness and handle evasive behavior
   useEffect(() => {
